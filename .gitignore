@@ -60,3 +60,11 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+
+*.pyc
+capstoneproject4
+db.sqlite3
+/static
+.DS_Store
+
+
