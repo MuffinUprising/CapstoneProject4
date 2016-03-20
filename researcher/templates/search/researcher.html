@@ -10,7 +10,12 @@
     </div>
 
     <div>
-        <p>Search for a topic to find results from Wikipedia and DPLA, as well as images from Wikimedia.</p>
+        {% for research in research %}
+            <div>
+                <p>Search term: {{research.search_term}}</p>
+            </div>
+
+        {% endfor %}
     </div>
 </body>
 </html>

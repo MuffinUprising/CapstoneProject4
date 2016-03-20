@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from .models import DplaResult
+from .models import DplaResult, Researcher, Images, Wiki
 import urllib.request
 import urllib.parse
+from django.utils import timezone
 import json
 import wikipedia
 
@@ -10,7 +11,8 @@ dpla_api = "cd25c210d8141e63e88e09634f6a37a7"
 
 
 def researcher(request):
-    return render(request, 'search/researcher.html', {})
+    research = Researcher.objects.all()
+    return render(request, 'search/researcher.html', {'research': research})
 
 
 def search_dpla(user_query):
