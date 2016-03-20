@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 
-class Search(models.Model):
+class Researcher(models.Model):
 
     search_term = models.CharField(max_length=200)
 
@@ -31,7 +31,6 @@ class DplaResult(models.Model):
         subject_headings.append(subject_heading3)
 
 
-
 class Images(models.Model):
 
     imageURL1 = models.URLField()
@@ -47,7 +46,6 @@ class Images(models.Model):
         imageList.append(imageURL3)
         imageList.append(imageURL4)
         imageList.append(imageURL5)
-
 
 
 class Wiki(models.Model):

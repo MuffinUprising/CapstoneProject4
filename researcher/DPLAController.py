@@ -1,16 +1,23 @@
-from django.shortcuts import render
-from .models import DplaResult
+__author__ = 'casey'
+
 import urllib.request
 import urllib.parse
 import json
-import wikipedia
+from .models import DplaResult
 
-#CONTROLLERS
+
 dpla_api = "cd25c210d8141e63e88e09634f6a37a7"
+# test_url = "http://api.dp.la/v2/items?q=food%20desert&api_key=cd25c210d8141e63e88e09634f6a37a7"
+# # test_values = {'q': 'food%20desert', 'api_key': dpla_api}
+#
+# # data = urllib.parse.urlencode(test_values)
+# # data = data.encode('utf-8')
+# request = urllib.request.Request(test_url)
+# response = urllib.request.urlopen(request)
+#
+# responseData = response.read()
+# print(responseData)
 
-
-def researcher(request):
-    return render(request, 'search/researcher.html', {})
 
 
 def search_dpla(user_query):
