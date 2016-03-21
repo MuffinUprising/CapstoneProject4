@@ -1,21 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Researcher</title>
-</head>
-<body>
-    <div>
-        <h1><a href="">Researcher</a></h1>
-    </div>
+{% extends 'search/base.html' %}
 
-    <div>
-        {% for research in research %}
-            <div>
-                <p>Search term: {{research.search_term}}</p>
+{% block content %}
+<div>
+    <h2>Previous Searches</h2>
+
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-8">
+                {% for research in research %}
+                    <div class="prev-search">
+                        <p>Search term: <a href="{% url 'researcher:search_previous' pk=research.pk %}">{{research.search_term}}</a></p>
+                    </div>
+                {% endfor %}
             </div>
-
-        {% endfor %}
+        </div>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}

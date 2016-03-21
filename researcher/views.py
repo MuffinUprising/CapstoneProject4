@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import DplaResult, Researcher, Images, Wiki
 import urllib.request
 import urllib.parse
@@ -13,6 +13,11 @@ dpla_api = "cd25c210d8141e63e88e09634f6a37a7"
 def researcher(request):
     research = Researcher.objects.all()
     return render(request, 'search/researcher.html', {'research': research})
+
+def search_previous(request, pk):
+    search = get_object_or_404(Researcher, pk=pk)
+    return render(request, 'search/search_detail.html', {'search': search})
+
 
 
 def search_dpla(user_query):
@@ -61,3 +66,7 @@ def create_dpla_result(resp_data):
     )
     print(str(dpla_result))
     return dpla_result
+
+def search_detail(request):
+    user_query = request.GET.get('user_query')
+    print("Query: " + user_query)

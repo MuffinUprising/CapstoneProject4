@@ -1,0 +1,30 @@
+{% extends 'search/base.html' %}
+
+{% block content %}
+    <div class="search">
+        {% if researcher.search_term %}
+            <div class="DplaResult">
+                <p>{{ dpla.url }}<</p>
+                <p>{{ dpla.author }}</p>
+                <p>{{ dpla.summary }}</p>
+                <p>{{ dpla.subject_heading1 }}</p>
+                <p>{{ dpla.subject_heading2 }}</p>
+                <p>{{ dpla.subject_heading3 }}</p>
+                <p>{{ dpla.publisher }}</p>
+                <p>{{ dpla.date_published }}</p>
+            </div>
+            <div class="Wiki">
+                <p>{{ wiki.url }}</p>
+                <p>{{ wiki.title }}</p>
+                <p>{{ wiki.summary }}</p>
+            </div>
+            <div class="Images">
+                <img src="{{ images.imageURL1 }}">
+                <img src="{{ images.imageURL2 }}">
+                <img src="{{ images.imageURL3 }}">
+                <img src="{{ images.imageURL4 }}">
+                <img src="{{ images.imageURL5 }}">
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
