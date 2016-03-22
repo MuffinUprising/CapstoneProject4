@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-
+# search term model
 class Researcher(models.Model):
 
     search_term = models.CharField(max_length=200)
@@ -12,7 +12,7 @@ class Researcher(models.Model):
     def __str__(self):
         return self.search_term
 
-
+# model for DPLA results
 class DplaResult(models.Model):
 
     url = models.URLField()
@@ -24,13 +24,7 @@ class DplaResult(models.Model):
     publisher = models.CharField(max_length=250)
     date_published = models.CharField(max_length=250)
 
-    def buildSHList(self, subject_heading1, subject_heading2, subject_heading3):
-        subject_headings = []
-        subject_headings.append(subject_heading1)
-        subject_headings.append(subject_heading2)
-        subject_headings.append(subject_heading3)
-
-
+# model for images
 class Images(models.Model):
 
     imageURL1 = models.URLField()
@@ -47,7 +41,7 @@ class Images(models.Model):
         imageList.append(imageURL4)
         imageList.append(imageURL5)
 
-
+# model for Wikipedia results
 class Wiki(models.Model):
 
     url = models.URLField()

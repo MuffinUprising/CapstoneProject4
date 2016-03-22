@@ -5,6 +5,7 @@ import urllib.parse
 import json
 from .models import DplaResult
 
+## **Functions moved to views.py - class no longer used **
 
 dpla_api = "cd25c210d8141e63e88e09634f6a37a7"
 # test_url = "http://api.dp.la/v2/items?q=food%20desert&api_key=cd25c210d8141e63e88e09634f6a37a7"
