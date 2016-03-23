@@ -30,7 +30,7 @@ def search_dpla(user_query):
         # fields to return from API call
         return_fields = "isShownAt," \
                         "sourceResource.title," \
-                        "sourceResource.contributor," \
+                        "sourceResource.creator," \
                         "sourceResource.subject," \
                         "sourceResource.description," \
                         "sourceResource.date.begin," \
@@ -65,27 +65,52 @@ def verify_json(request):
 
 # set dpla_result attributes
 def create_dpla_result(q):
-    response_dict = q.get('response')  # <-- response not getting passed here
-    print("response dict: " + str(response_dict))
-    dpla_result = DplaResult(
-        url=response_dict.get('isShownAt'),
-        subject_heading1=response_dict.get('sourceResource.subject'),
-        subject_heading2=response_dict.get('sourceResource.subject'),
-        subject_heading3=response_dict.get('sourceResource.subject'),
-        summary=response_dict.get('sourceResource.description'),
-        author=response_dict.get('sourceResource.contributor'),
-        publisher=response_dict.get('provider.name'),
-        date_published=response_dict.get('sourceResource.date.begin')
-    )
-    print(str(dpla_result))
-    return dpla_result
+    response_dict = q.get('docs')
+    #iterate over list
+    dpla_results = []
+
+    for item in response_dict:
+        # list comprehension - Thanks to Boyd!
+        sh_list = [i.get('name') for i in item.get('sourceResource.subject')]
+        sh_dict = {'subject_heading' + str(i+1): u for i, u in enumerate(sh_list)}
+        # perform .get
+        dpla_result = DplaResult(
+            url=item.get('isShownAt'),
+            summary=item.get('sourceResource.description'),
+            author=item.get('sourceResource.creator'),
+            publisher=item.get('provider.name'),
+            date_published=item.get('sourceResource.date.begin'),
+            **sh_dict
+        )
+        dpla_results.append(dpla_result)
+
+    return dpla_results
 
 # search detail
 def search_detail(request):
     user_query = request.GET.get('user_query')
-    print("Query: " + user_query)
+    print('Query:' + user_query)
     q = search_dpla(user_query)
-    print("Result: " + str(q))  # results are here
-    new_query = create_dpla_result(q)
-    print(new_query)
-    return render(request, 'search/search_detail', {'dpla': new_query})
+    dpla_query = create_dpla_result(q)
+    wiki = search_wikipedia(user_query)
+    # search_wikimedia(user_query)
+
+    return render(request, 'search/search_detail.html', {'dpla_results': dpla_query, 'wiki_result': wiki})
+
+
+def search_wikipedia(request):
+    result = wikipedia.page(request)
+    wiki_url = result.url
+    wiki_title = result.title
+    wiki_summary = result.summary
+    wiki = Wiki(url=wiki_url, title=wiki_title, summary=wiki_summary)
+
+    return wiki
+
+def search_wikimedia(request):
+    pass
+
+
+def create_images_result(q):
+    pass
+

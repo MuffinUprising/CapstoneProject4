@@ -19,6 +19,9 @@ class DplaResult(models.Model):
     subject_heading1 = models.CharField(max_length=250)
     subject_heading2 = models.CharField(max_length=250)
     subject_heading3 = models.CharField(max_length=250)
+    subject_heading4 = models.CharField(max_length=250)
+    subject_heading5 = models.CharField(max_length=250)
+    subject_heading6 = models.CharField(max_length=250)
     summary = models.CharField(max_length=250)
     author = models.CharField(max_length=200)
     publisher = models.CharField(max_length=250)
@@ -47,5 +50,6 @@ class Wiki(models.Model):
     url = models.URLField()
     title = models.CharField(max_length=250)
     summary = models.TextField()
+
 
 
