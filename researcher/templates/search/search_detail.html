@@ -27,14 +27,16 @@
                 <p>{{ wiki_result.summary }}</p>
             </div>
             {% endif %}
+            {% if image_results %}
             <div class="Images">
                 <h2>Images</h2>
-                <!--<img src="{{ images.imageURL1 }}">-->
-                <!--<img src="{{ images.imageURL2 }}">-->
-                <!--<img src="{{ images.imageURL3 }}">-->
-                <!--<img src="{{ images.imageURL4 }}">-->
-                <!--<img src="{{ images.imageURL5 }}">-->
+                <img src="{{ image_results.imageURL1 }}" height="200">
+                <img src="{{ image_results.imageURL2 }}" height="200">
+                <img src="{{ image_results.imageURL3 }}" height="200">
+                <img src="{{ image_results.imageURL4 }}" height="200">
+                <img src="{{ image_results.imageURL5 }}" height="200">
             </div>
+            {% endif %}
 
     </div>
 {% endblock %}

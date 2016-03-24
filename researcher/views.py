@@ -93,9 +93,11 @@ def search_detail(request):
     q = search_dpla(user_query)
     dpla_query = create_dpla_result(q)
     wiki = search_wikipedia(user_query)
-    # search_wikimedia(user_query)
+    images = search_wikimedia(user_query)
 
-    return render(request, 'search/search_detail.html', {'dpla_results': dpla_query, 'wiki_result': wiki})
+    return render(request, 'search/search_detail.html', {'dpla_results': dpla_query,
+                                                         'wiki_result': wiki,
+                                                         'image_results': images})
 
 
 def search_wikipedia(request):
@@ -108,7 +110,24 @@ def search_wikipedia(request):
     return wiki
 
 def search_wikimedia(request):
-    pass
+    page = wikipedia.page(request)
+    image_url_list = []
+    print("Number of images on page: " + str(len(page.images)))
+    if len(page.images) < 5:
+        number_to_display = len(page.images)
+    else:
+        number_to_display = 5
+    i = 0
+    while i < number_to_display:
+        image_url_list.append(page.images[i])
+        i += 1
+    print(image_url_list)
+    image_dict = {'imageURL' + str(i+1): u for i, u in enumerate(image_url_list)}
+    print(str(image_dict))
+    images = Images(**image_dict)
+
+    return images
+
 
 
 def create_images_result(q):
