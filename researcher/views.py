@@ -49,19 +49,8 @@ def search_dpla(user_query):
         print(str(json_resp))
         return json_resp
 
-
     except Exception as e:
         print(str(e))
-
-# yet unimplemented
-def verify_json(request):
-    try:
-        request.json()
-
-    except ValueError as e:
-        return "Error: {}".format(e)
-
-    return request
 
 # set dpla_result attributes
 def create_dpla_result(q):
@@ -69,6 +58,7 @@ def create_dpla_result(q):
     #iterate over list
     dpla_results = []
 
+    #TODO: limit subject heading results to 6
     for item in response_dict:
         # list comprehension - Thanks to Boyd!
         sh_list = [i.get('name') for i in item.get('sourceResource.subject')]
@@ -88,6 +78,8 @@ def create_dpla_result(q):
 
 # search detail
 def search_detail(request):
+    #TODO: handle spaces and quotes entered by the user
+    #TODO: add search term to previous_searches
     user_query = request.GET.get('user_query')
     print('Query:' + user_query)
     q = search_dpla(user_query)
@@ -99,7 +91,7 @@ def search_detail(request):
                                                          'wiki_result': wiki,
                                                          'image_results': images})
 
-
+# get reuslts fro wikipedia and add to model
 def search_wikipedia(request):
     result = wikipedia.page(request)
     wiki_url = result.url
@@ -109,10 +101,11 @@ def search_wikipedia(request):
 
     return wiki
 
+# get images from wikimedia and add to model
 def search_wikimedia(request):
     page = wikipedia.page(request)
     image_url_list = []
-    print("Number of images on page: " + str(len(page.images)))
+    #limit to 5 images
     if len(page.images) < 5:
         number_to_display = len(page.images)
     else:
@@ -121,15 +114,9 @@ def search_wikimedia(request):
     while i < number_to_display:
         image_url_list.append(page.images[i])
         i += 1
-    print(image_url_list)
+    # set up image names <-- Thanks again Boyd!
     image_dict = {'imageURL' + str(i+1): u for i, u in enumerate(image_url_list)}
-    print(str(image_dict))
+    # add to model
     images = Images(**image_dict)
 
     return images
-
-
-
-def create_images_result(q):
-    pass
-
