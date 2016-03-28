@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4a5422ae-4e32-4cf8-a6ad-de5876853a59" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/researcher/templates/registration/login.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/researcher/templates/search/base.html" afterPath="$PROJECT_DIR$/researcher/templates/search/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/researcher/forms.py" afterPath="$PROJECT_DIR$/researcher/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/researcher/models.py" afterPath="$PROJECT_DIR$/researcher/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project4/settings.py" afterPath="$PROJECT_DIR$/project4/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project4/urls.py" afterPath="$PROJECT_DIR$/project4/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/researcher/urls.py" afterPath="$PROJECT_DIR$/researcher/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/researcher/views.py" afterPath="$PROJECT_DIR$/researcher/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="4a5422ae-4e32-4cf8-a6ad-de5876853a59" name="Default" comment="" />
     <ignored path="CapstoneProject4.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -36,7 +26,7 @@
       <file leaf-file-name="models.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/researcher/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7986755" vertical-offset="480" max-vertical-offset="1235">
+            <state vertical-scroll-proportion="1.434437" vertical-offset="0" max-vertical-offset="1235">
               <caret line="57" column="47" selection-start-line="57" selection-start-column="47" selection-end-line="57" selection-end-column="47" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
@@ -970,7 +960,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/researcher/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7986755" vertical-offset="480" max-vertical-offset="1235">
+        <state vertical-scroll-proportion="1.434437" vertical-offset="0" max-vertical-offset="1235">
           <caret line="57" column="47" selection-start-line="57" selection-start-column="47" selection-end-line="57" selection-end-column="47" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
