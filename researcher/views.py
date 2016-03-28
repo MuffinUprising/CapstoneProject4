@@ -17,8 +17,7 @@ dic = {' ': '+', '"': '&quot;'}
 @login_required()
 # front page
 def researcher(request):
-    research = Researcher.objects.all()
-
+    research = Researcher.objects.all().order_by('search_term')
     return render(request, 'search/researcher.html', {'research': research})
 
 @login_required()
