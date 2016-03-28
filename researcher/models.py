@@ -51,5 +51,9 @@ class Wiki(models.Model):
     title = models.CharField(max_length=250)
     summary = models.TextField()
 
+# model for user info
+class User(models.Model):
 
+    username = models.CharField(max_length=250)
+    password = models.CharField(max_length=250)
 

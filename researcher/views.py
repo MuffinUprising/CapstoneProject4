@@ -1,20 +1,27 @@
 from django.shortcuts import render, get_object_or_404
 from .models import DplaResult, Researcher, Images, Wiki
+from.forms import LoginForm
 import urllib.request
 import urllib.parse
 from django.utils import timezone
 import json
 import wikipedia
+from django.contrib.auth.decorators import login_required
 
 #CONTROLLERS (note to self)
 # dpla api key
 dpla_api = "cd25c210d8141e63e88e09634f6a37a7"
 
+dic = {' ': '+', '"': '&quot;'}
+
+@login_required()
 # front page
 def researcher(request):
     research = Researcher.objects.all()
+
     return render(request, 'search/researcher.html', {'research': research})
 
+@login_required()
 #previous searches
 def search_previous(request, pk):
     search = get_object_or_404(Researcher, pk=pk)
@@ -25,8 +32,6 @@ def search_previous(request, pk):
 def search_dpla(user_query):
 
     try:
-        # user_query = "food+AND+desert"
-
         # fields to return from API call
         return_fields = "isShownAt," \
                         "sourceResource.title," \
@@ -36,8 +41,9 @@ def search_dpla(user_query):
                         "sourceResource.date.begin," \
                         "provider.name"
         #URL for call
-        url = "http://api.dp.la/v2/items?sourceResource.subject="+user_query+"&page_size=5&fields="+return_fields+"&api_key="+dpla_api
+        url = "http://api.dp.la/v2/items?sourceResource.subject=" + user_query + "&page_size=5&fields="+return_fields+"&api_key="+dpla_api
         # request/response
+        print("requesting url: " + url)
         req = urllib.request.Request(url)
         resp = urllib.request.urlopen(req)
         #decode and load json file
@@ -58,11 +64,13 @@ def create_dpla_result(q):
     #iterate over list
     dpla_results = []
 
-    #TODO: limit subject heading results to 6
     for item in response_dict:
         # list comprehension - Thanks to Boyd!
         sh_list = [i.get('name') for i in item.get('sourceResource.subject')]
-        sh_dict = {'subject_heading' + str(i+1): u for i, u in enumerate(sh_list)}
+        # limit subject heading results to 6
+        sh_list_limited = sh_list[0:6]
+        # enumerate through list and add number to name
+        sh_dict = {'subject_heading' + str(i+1): u for i, u in enumerate(sh_list_limited)}
         # perform .get
         dpla_result = DplaResult(
             url=item.get('isShownAt'),
@@ -72,6 +80,7 @@ def create_dpla_result(q):
             date_published=item.get('sourceResource.date.begin'),
             **sh_dict
         )
+        #add to dpla results list
         dpla_results.append(dpla_result)
 
     return dpla_results
@@ -82,6 +91,11 @@ def search_detail(request):
     #TODO: add search term to previous_searches
     user_query = request.GET.get('user_query')
     print('Query:' + user_query)
+
+    for k in dic:
+        user_query = user_query.replace(k, dic[k])
+        print("test:" + user_query)
+
     q = search_dpla(user_query)
     dpla_query = create_dpla_result(q)
     wiki = search_wikipedia(user_query)
@@ -120,3 +134,18 @@ def search_wikimedia(request):
     images = Images(**image_dict)
 
     return images
+
+
+def format_search_term(request, d):
+
+    for j, k in d.items():
+        request = request.replace(j, k)
+
+    print("new request:" + request)
+
+    return request
+
+def login(request):
+
+    form = LoginForm()
+    return render(request, 'registration/login.html', {'form': form})

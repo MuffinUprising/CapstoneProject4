@@ -11,7 +11,13 @@
 </head>
 <body>
 <div class="page-header">
+    {% if user.is_authenticated %}
+    <p class="top-menu">Hello {{ user.username }}<small>(<a href="{% url 'django.contrib.auth.views.logout' %}">Log out</a>)</small></p>
+    {% else %}
+    <a href="{% url 'django.contrib.auth.views.login' %}" class="top-menu"><span class="glyphicon glyphicon-lock"></span></a>
+    {% endif %}
     <h1><a href="/">ReSearcher</a></h1>
+
 </div>
 
     <div class="search">
