@@ -95,16 +95,18 @@ def search_detail(request):
         user_query = user_query.replace(k, dic[k])
         print("test:" + user_query)
 
+    # perform searches
     q = search_dpla(user_query)
     dpla_query = create_dpla_result(q)
     wiki = search_wikipedia(user_query)
     images = search_wikimedia(user_query)
 
+    #return results
     return render(request, 'search/search_detail.html', {'dpla_results': dpla_query,
                                                          'wiki_result': wiki,
                                                          'image_results': images})
 
-# get reuslts fro wikipedia and add to model
+# get results from wikipedia and add to model
 def search_wikipedia(request):
     result = wikipedia.page(request)
     wiki_url = result.url
@@ -134,7 +136,8 @@ def search_wikimedia(request):
 
     return images
 
-
+# replace spaces and quotes with appropriate format
+# NOTE: Quotes seem to be not working. Could be using the wrong type of replacement for url
 def format_search_term(request, d):
 
     for j, k in d.items():
@@ -144,6 +147,7 @@ def format_search_term(request, d):
 
     return request
 
+# login form
 def login(request):
 
     form = LoginForm()
